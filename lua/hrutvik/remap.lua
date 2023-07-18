@@ -38,3 +38,5 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open float
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 vim.keymap.set('n', "<leader>Gp", "<cmd>G push<cr>", { desc = '[G]it [p]ush to upstream' })
+vim.keymap.set('n', '<leader>Gf', '<cmd>diffget //2<cr>', { desc = 'diffget left' })
+vim.keymap.set('n', '<leader>Gj', '<cmd>diffget //3<cr>', { desc = 'diffget right' })

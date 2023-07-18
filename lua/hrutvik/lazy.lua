@@ -26,14 +26,14 @@ require("lazy").setup({
         }
     },
     { "folke/neoconf.nvim", cmd = "Neoconf" },
-    "folke/neodev.nvim",
+    { "folke/neodev.nvim",  opts = {} },
     {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.2',
         -- or                              , branch = '0.1.x',
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
-    { 'rose-pine/neovim',   name = 'rose-pine' },
+    { 'rose-pine/neovim', name = 'rose-pine' },
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
@@ -48,6 +48,7 @@ require("lazy").setup({
             })
         end
     },
+    { "nvim-treesitter/nvim-treesitter-context", opts = {} },
     "nvim-treesitter/playground",
     "theprimeagen/harpoon",
     "mbbill/undotree",
@@ -58,7 +59,7 @@ require("lazy").setup({
         dependencies = {
             -- LSP Support
             { 'neovim/nvim-lspconfig' }, -- Required
-            {                 -- Optional
+            {                            -- Optional
                 'williamboman/mason.nvim',
                 build = function()
                     pcall(vim.cmd, 'MasonUpdate')
@@ -67,9 +68,9 @@ require("lazy").setup({
             { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
             -- Autocompletion
-            { 'hrsh7th/nvim-cmp' }, -- Required
+            { 'hrsh7th/nvim-cmp' },     -- Required
             { 'hrsh7th/cmp-nvim-lsp' }, -- Required
-            { 'L3MON4D3/LuaSnip' }, -- Required
+            { 'L3MON4D3/LuaSnip' },     -- Required
         }
     },
     {
