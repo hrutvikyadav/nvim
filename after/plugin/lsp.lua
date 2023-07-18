@@ -41,4 +41,7 @@ lsp.format_on_save({
     }
 })
 
+-- setup lua_ls specifically for nvim
+require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+-- setup all other installed LSP's
 lsp.setup()
