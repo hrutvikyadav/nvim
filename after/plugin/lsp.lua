@@ -22,23 +22,23 @@ lsp.ensure_installed({
     -- Replace these with whatever servers you want to install
     'tsserver',
     'eslint',
-    --'sumneko_lua',
     'rust_analyzer',
+    'lua_ls',
 })
 
 -- allow only single server to format per file type - mapped to `gq`
--- lsp.format_mapping('gq', {
---  format_opts = {
---    async = false,
---    timeout_ms = 10000,
---  },
---  servers = {
---    ['lua_ls'] = {'lua'},
---    ['rust_analyzer'] = {'rust'},
--- if you have a working setup with null-ls
--- you can specify filetypes it can format.
--- ['null-ls'] = {'javascript', 'typescript'},
---  }
---})
+--lsp.format_mapping('gq', {
+lsp.format_on_save({
+    format_opts = {
+        async = false,
+        timeout_ms = 10000,
+    },
+    servers = {
+        ['lua_ls'] = { 'lua' },
+        ['rust_analyzer'] = { 'rust' },
+        -- if you have a working setup with null-ls you can specify filetypes it can format.
+        -- ['null-ls'] = {'javascript', 'typescript'},
+    }
+})
 
 lsp.setup()
