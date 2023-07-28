@@ -1,3 +1,4 @@
+require("hrutvik.diagnostics")
 require("hrutvik.remap")
 require("hrutvik.settings")
 require("hrutvik.lazy")

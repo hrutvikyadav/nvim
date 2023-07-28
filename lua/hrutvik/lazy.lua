@@ -33,7 +33,7 @@ require("lazy").setup({
         -- or                              , branch = '0.1.x',
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
-    { 'rose-pine/neovim', name = 'rose-pine' },
+    { 'rose-pine/neovim',                        name = 'rose-pine' },
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
@@ -41,7 +41,8 @@ require("lazy").setup({
             local configs = require("nvim-treesitter.configs")
 
             configs.setup({
-                ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "typescript", "rust", "javascript", "html" },
+                ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "typescript", "rust", "javascript", "html",
+                    "toml" },
                 sync_install = false,
                 highlight = { enable = true },
                 indent = { enable = true },
@@ -70,9 +71,18 @@ require("lazy").setup({
             -- Autocompletion
             { 'hrsh7th/nvim-cmp' },     -- Required
             { 'hrsh7th/cmp-nvim-lsp' }, -- Required
-            { 'L3MON4D3/LuaSnip' },     -- Required
+            -- from rust setup
+            { 'hrsh7th/cmp-nvim-lua' },
+            { 'hrsh7th/cmp-nvim-lsp-signature-help' },
+            { 'saadparwaiz1/cmp_luasnip' },
+            { 'hrsh7th/cmp-path' },
+            { 'hrsh7th/cmp-buffer' },
+            -- engine
+            { 'L3MON4D3/LuaSnip' }, -- Required
         }
     },
+    'mfussenegger/nvim-dap', -- DEBUGGING
+    'simrat39/rust-tools.nvim',
     {
         "lukas-reineke/indent-blankline.nvim",
         opts = {
