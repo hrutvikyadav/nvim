@@ -42,7 +42,7 @@ require("lazy").setup({
 
             configs.setup({
                 ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "typescript", "rust", "javascript", "html",
-                    "toml" },
+                    "toml", "tsx" },
                 sync_install = false,
                 highlight = { enable = true },
                 indent = { enable = true },
