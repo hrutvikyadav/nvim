@@ -95,12 +95,19 @@ require("lazy").setup({
         opts = {
             -- See `:help gitsigns.txt`
             signs = {
-                add          = { text = '+' },
-                change       = { text = '~' },
-                delete       = { text = '_' },
-                topdelete    = { text = '‾' },
-                changedelete = { text = '~' },
-                untracked    = { text = '┆' },
+                --add          = { text = '+' },
+                --change       = { text = '~' },
+                --delete       = { text = '_' },
+                --topdelete    = { text = '‾' },
+                --changedelete = { text = '~' },
+                --untracked    = { text = '┆' },
+
+                add = { text = "│", },
+                change = { text = "│", },
+                delete = { text = "󰍵", },
+                topdelete = { text = "‾", },
+                changedelete = { text = "~", },
+                untracked = { text = "┆", },
             },
             on_attach = function(bufnr)
                 vim.keymap.set('n', '<leader>[h', require('gitsigns').prev_hunk,
@@ -137,4 +144,5 @@ require("lazy").setup({
     },
 })
 
+-- vim.cmd('colorscheme rose-pine')
 -- vim.cmd('colorscheme rose-pine')
