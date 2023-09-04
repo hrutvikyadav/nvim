@@ -142,6 +142,16 @@ require("lazy").setup({
             disable_filetype = { "TelescopePrompt", "vim" },
         } -- this is equalent to setup({}) function
     },
+    {
+        "folke/trouble.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        opts = {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        },
+    },
+    'ThePrimeagen/git-worktree.nvim',
 })
 
 -- vim.cmd('colorscheme rose-pine')
