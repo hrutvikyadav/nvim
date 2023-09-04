@@ -27,11 +27,19 @@ function AddCT(is_def)
         set_highlight("GitGutterAdd", { guifg = red, guibg = "NONE" })
         set_highlight("GitGutterChange", { guifg = cyan, guibg = "NONE" })
         set_highlight("GitGutterDelete", { guifg = white, guibg = "NONE" })
+
+        set_highlight("GitSignsAdd", { guifg = red, guibg = "NONE" })
+        set_highlight("GitSignsChange", { guifg = cyan, guibg = "NONE" })
+        set_highlight("GitSignsDelete", { guifg = white, guibg = "NONE" })
     else
         set_highlight("LineNr", { guifg = violet, guibg = "NONE", ctermfg = 11 })
         set_highlight("GitGutterAdd", { guifg = cyan, guibg = "NONE" })
         set_highlight("GitGutterChange", { guifg = violet, guibg = "NONE" })
         set_highlight("GitGutterDelete", { guifg = red, guibg = "NONE" })
+
+        set_highlight("GitSignsAdd", { guifg = cyan, guibg = "NONE" })
+        set_highlight("GitSignsChange", { guifg = violet, guibg = "NONE" })
+        set_highlight("GitSignsDelete", { guifg = red, guibg = "NONE" })
     end
 end
 
