@@ -153,6 +153,30 @@ require("lazy").setup({
         },
     },
     'ThePrimeagen/git-worktree.nvim',
+    {
+        "petertriho/cmp-git",
+        dependencies = "nvim-lua/plenary.nvim",
+        ft = "gitcommit",
+        opts = {},
+    },
+    {
+        "kylechui/nvim-surround",
+        version = "*", -- Use for stability; omit to use `main` branch for the latest features
+        event = "VeryLazy",
+        config = function()
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
+            })
+            vim.api.nvim_set_hl(0, "IlluminatedWordText", { underline = true, bg = "#363B54" })
+            vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { underline = true, bg = "#363B54" })
+            vim.api.nvim_set_hl(0, "IlluminatedWordRead", { underline = true, bg = "#363B54" })
+            --:hi IlluminatedWordText gui=underline guibg=
+        end
+    },
+    {
+        "RRethy/vim-illuminate",
+        event = "BufEnter",
+    },
 })
 
 -- vim.cmd('colorscheme rose-pine')
