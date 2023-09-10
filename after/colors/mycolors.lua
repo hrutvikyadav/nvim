@@ -13,6 +13,10 @@ local violet = "#817c9c"
 local cyan = "#9ccfd8"
 local red = "#ea9a97"
 local white = "#ecebf0"
+local rp_red = "#eb6f92"
+
+--:hi DiagnosticError ctermfg=1 guifg=#CC0000
+local foreign_red = "#CC0000"
 
 function AddCT(is_def)
     -- use default GitGutter colors or a modified combination
@@ -31,15 +35,19 @@ function AddCT(is_def)
         set_highlight("GitSignsAdd", { guifg = red, guibg = "NONE" })
         set_highlight("GitSignsChange", { guifg = cyan, guibg = "NONE" })
         set_highlight("GitSignsDelete", { guifg = white, guibg = "NONE" })
+        -- NOTE: experimental
+        --set_highlight("DiagnosticError", { guifg = foreign_red, guibg = "NONE", ctermfg = 1 })
     else
         set_highlight("LineNr", { guifg = violet, guibg = "NONE", ctermfg = 11 })
         set_highlight("GitGutterAdd", { guifg = cyan, guibg = "NONE" })
         set_highlight("GitGutterChange", { guifg = violet, guibg = "NONE" })
-        set_highlight("GitGutterDelete", { guifg = red, guibg = "NONE" })
+        set_highlight("GitGutterDelete", { guifg = rp_red, guibg = "NONE" })
 
         set_highlight("GitSignsAdd", { guifg = cyan, guibg = "NONE" })
         set_highlight("GitSignsChange", { guifg = violet, guibg = "NONE" })
-        set_highlight("GitSignsDelete", { guifg = red, guibg = "NONE" })
+        set_highlight("GitSignsDelete", { guifg = rp_red, guibg = "NONE" })
+        -- NOTE: experimental
+        --set_highlight("DiagnosticError", { guifg = foreign_red, guibg = "NONE", ctermfg = 1 })
     end
 end
 
