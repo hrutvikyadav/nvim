@@ -78,7 +78,11 @@ require("lazy").setup({
             { 'hrsh7th/cmp-path' },
             { 'hrsh7th/cmp-buffer' },
             -- engine
-            { 'L3MON4D3/LuaSnip' }, -- Required
+            {
+                'L3MON4D3/LuaSnip',
+                -- follow latest release.
+                version = "2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+            },                   -- Required
         }
     },
     'mfussenegger/nvim-dap', -- DEBUGGING
