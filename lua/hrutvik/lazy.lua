@@ -148,6 +148,10 @@ require("lazy").setup({
         } -- this is equalent to setup({}) function
     },
     {
+        'windwp/nvim-ts-autotag',
+        event = "InsertEnter",
+    },
+    {
         "folke/trouble.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
         opts = {
