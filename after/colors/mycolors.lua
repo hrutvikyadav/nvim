@@ -40,15 +40,15 @@ function AddCT(is_def)
     else
         set_highlight("LineNr", { guifg = violet, guibg = "NONE", ctermfg = 11 })
         set_highlight("GitGutterAdd", { guifg = cyan, guibg = "NONE" })
-        set_highlight("GitGutterChange", { guifg = violet, guibg = "NONE" })
+        set_highlight("GitGutterChange", { guifg = red, guibg = "NONE" })
         set_highlight("GitGutterDelete", { guifg = rp_red, guibg = "NONE" })
 
         set_highlight("GitSignsAdd", { guifg = cyan, guibg = "NONE" })
-        set_highlight("GitSignsChange", { guifg = violet, guibg = "NONE" })
+        set_highlight("GitSignsChange", { guifg = red, guibg = "NONE" })
         set_highlight("GitSignsDelete", { guifg = rp_red, guibg = "NONE" })
         -- NOTE: experimental
         --set_highlight("DiagnosticError", { guifg = foreign_red, guibg = "NONE", ctermfg = 1 })
     end
 end
 
-AddCT(true)
+AddCT()

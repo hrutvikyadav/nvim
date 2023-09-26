@@ -156,7 +156,8 @@ cmp.setup({
                 nvim_lua = 'Π',
             }
             item.menu = menu_icon[entry.source.name]
-            return item
+            return require("tailwindcss-colorizer-cmp").formatter(entry, item)
         end,
+        expandable_indicator = true,
     }
 })
