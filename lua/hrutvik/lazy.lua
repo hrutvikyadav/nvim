@@ -37,6 +37,7 @@ require("lazy").setup({
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
+        event = { 'BufReadPre', 'BufNewFile' },
         config = function()
             local configs = require("nvim-treesitter.configs")
 
@@ -47,7 +48,21 @@ require("lazy").setup({
                 highlight = { enable = true },
                 indent = { enable = true },
                 --autotag = { enable = true }
+                incremental_selection = {
+                    enable = true,
+                    keymaps = {
+                        init_selection = "<C-space>",
+                        node_incremental = "<C-space>",
+                        scope_incremental = false,
+                        node_decremental = "<C-Left>"
+                    }
+                },
             })
+            vim.cmd([[
+                set foldmethod=expr
+                set foldexpr=nvim_treesitter#foldexpr()
+                set nofoldenable                     " Disable folding at startup.
+            ]])
         end
     },
     { "nvim-treesitter/nvim-treesitter-context", opts = {} },
@@ -218,15 +233,28 @@ require("lazy").setup({
             require("nvim-surround").setup({
                 -- Configuration here, or leave empty to use defaults
             })
-            vim.api.nvim_set_hl(0, "IlluminatedWordText", { underline = false, bg = "#363B54" })
-            vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { underline = false, bg = "#363B54" })
-            vim.api.nvim_set_hl(0, "IlluminatedWordRead", { underline = false, bg = "#363B54" })
+            --vim.api.nvim_set_hl(0, "IlluminatedWordText", { underline = false, bg = "#363B54" })
+            --vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { underline = false, bg = "#363B54" })
+            --vim.api.nvim_set_hl(0, "IlluminatedWordRead", { underline = false, bg = "#363B54" })
             --:hi IlluminatedWordText gui=underline guibg=
         end
     },
     {
         "RRethy/vim-illuminate",
         event = "BufEnter",
+        config = function()
+            require('illuminate').configure({
+                filetype_denylist = {
+                    'fugitive',
+                    'help',
+                    'gitcommit'
+                }
+            })
+            vim.api.nvim_set_hl(0, "IlluminatedWordText", { underline = false, bg = "#363B54" })
+            vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { underline = false, bg = "#363B54" })
+            vim.api.nvim_set_hl(0, "IlluminatedWordRead", { underline = false, bg = "#363B54" })
+            --:hi IlluminatedWordText gui=underline guibg=
+        end
     },
     {
         "roobert/tailwindcss-colorizer-cmp.nvim",
@@ -238,6 +266,10 @@ require("lazy").setup({
         end
     },
     'norcalli/nvim-colorizer.lua',
+    {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        dependencies = "nvim-treesitter/nvim-treesitter",
+    },
 })
 
 -- vim.cmd('colorscheme rose-pine')
