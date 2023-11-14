@@ -26,14 +26,14 @@ require("lazy").setup({
         }
     },
     { "folke/neoconf.nvim", cmd = "Neoconf" },
-    { "folke/neodev.nvim",  opts = {} },
+    { "folke/neodev.nvim",  opts = {},      ft = 'lua' },
     {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.2',
         -- or                              , branch = '0.1.x',
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
-    { 'rose-pine/neovim',                        name = 'rose-pine' },
+    { 'rose-pine/neovim',           name = 'rose-pine' },
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
@@ -65,13 +65,30 @@ require("lazy").setup({
             ]])
         end
     },
-    { "nvim-treesitter/nvim-treesitter-context", opts = {} },
-    "nvim-treesitter/playground",
+    {
+        "nvim-treesitter/nvim-treesitter-context",
+        opts = {},
+        event = { 'BufReadPre', 'BufNewFile' },
+    },
+    { "nvim-treesitter/playground", cmd = 'TSPlaygroundToggle' },
     "theprimeagen/harpoon",
     "mbbill/undotree",
     "tpope/vim-fugitive",
     {
         'VonHeikemen/lsp-zero.nvim',
+        event = {
+            "BufEnter *.lua",
+            "BufEnter *.go",
+            "BufEnter *.rs",
+            "BufEnter *.nix",
+            "BufEnter *.c",
+            "BufEnter *.ml",
+            "BufEnter *.html",
+            "BufEnter *.js",
+            "BufEnter *.jsx",
+            "BufEnter *.ts",
+            "BufEnter *.tsx",
+        },
         branch = 'v2.x',
         dependencies = {
             -- LSP Support
@@ -97,16 +114,35 @@ require("lazy").setup({
             {
                 'L3MON4D3/LuaSnip',
                 -- follow latest release.
-                version = "2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-            },                   -- Required
-        }
+                version = "2.*",    -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+                event = 'InsertEnter',
+                config = function() -- NOTE: move after/plugin/name.lua to hplugins/name.lua and require that below
+                    require('hplugins.snippets')
+                end
+            }, -- Required
+        },
+        config = function()
+            require('hplugins.lsp')
+            vim.cmd('LspStart')
+        end
     },
-    'mfussenegger/nvim-dap', -- DEBUGGING
-    'simrat39/rust-tools.nvim',
+    { 'mfussenegger/nvim-dap',    enabled = false }, -- DEBUGGING
+    { 'simrat39/rust-tools.nvim', event = 'BufEnter *.rs' },
     {
         "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
+        cmd = 'IBLToggle',
         opts = {
-            char = '┊',
+            -- char = '┊', `┋`,  `▏`
+            -- indent = { char = "▏" },
+            scope = {
+                show_start = false,
+                show_end = false,
+                highlight = {
+                    "Function",
+                    "Label",
+                },
+            }
             --show_trailing_blankline_indent = false,
         },
     },
@@ -208,6 +244,9 @@ require("lazy").setup({
     {
         'windwp/nvim-ts-autotag',
         event = "InsertEnter",
+        config = function()
+            require('hplugins.ts-autotags')
+        end
     },
     {
         "folke/trouble.nvim",
@@ -241,7 +280,19 @@ require("lazy").setup({
     },
     {
         "RRethy/vim-illuminate",
-        event = "BufEnter",
+        event = {
+            "BufEnter *.lua",
+            "BufEnter *.go",
+            "BufEnter *.rs",
+            "BufEnter *.nix",
+            "BufEnter *.c",
+            "BufEnter *.ml",
+            "BufEnter *.html",
+            "BufEnter *.js",
+            "BufEnter *.jsx",
+            "BufEnter *.ts",
+            "BufEnter *.tsx",
+        },
         config = function()
             require('illuminate').configure({
                 filetype_denylist = {
@@ -258,6 +309,7 @@ require("lazy").setup({
     },
     {
         "roobert/tailwindcss-colorizer-cmp.nvim",
+        ft = { 'html', 'javascriptreact', 'typescriptreact' },
         -- optionally, override the default options:
         config = function()
             require("tailwindcss-colorizer-cmp").setup({
@@ -269,14 +321,22 @@ require("lazy").setup({
     {
         "nvim-treesitter/nvim-treesitter-textobjects",
         dependencies = "nvim-treesitter/nvim-treesitter",
+        event = { 'BufReadPre', 'BufNewFile' },
+        config = function()
+            require('hplugins.treesitter-text-objects')
+        end
     },
     {
         "folke/zen-mode.nvim",
+        cmd = 'ZenMode',
         opts = {
             -- your configuration comes here
             -- or leave it empty to use the default settings
             -- refer to the configuration section below
         },
+        config = function()
+            require('hplugins.zenmode')
+        end,
         dependencies = {
             "folke/twilight.nvim",
             opts = {
@@ -285,6 +345,24 @@ require("lazy").setup({
                 -- refer to the configuration section below
             }
         }
+    },
+    {
+        "folke/todo-comments.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        opts = {
+            -- FIX:
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        }
+    },
+    {
+        'numToStr/Comment.nvim',
+        opts = {
+            -- TODO: check if its working with treesitter textobjects
+            -- add any options here
+        },
+        lazy = false,
     }
 })
 
