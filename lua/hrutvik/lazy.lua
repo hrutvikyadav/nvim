@@ -270,7 +270,9 @@ require("lazy").setup({
         "petertriho/cmp-git",
         dependencies = "nvim-lua/plenary.nvim",
         ft = "gitcommit",
-        opts = {},
+        config = function()
+            require('cmp_git').setup() -- needed?
+        end
     },
     {
         "kylechui/nvim-surround",

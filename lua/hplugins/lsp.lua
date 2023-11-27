@@ -154,6 +154,7 @@ cmp.setup({
                 buffer = 'Ω',
                 path = '🖫',
                 nvim_lua = 'Π',
+                git = '',
             }
             item.menu = menu_icon[entry.source.name]
             return require("tailwindcss-colorizer-cmp").formatter(entry, item)
@@ -161,3 +162,11 @@ cmp.setup({
         expandable_indicator = true,
     }
 })
+cmp.setup.filetype('gitcommit', {
+    sources = cmp.config.sources({
+        { name = 'git' }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
+    }, {
+        { name = 'buffer' },
+    })
+}
+)
