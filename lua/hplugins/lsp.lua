@@ -96,6 +96,34 @@ rust_tools.setup({
     }
 })
 
+local kind_icons = {
+    Text = "",
+    Method = "󰆧",
+    Function = "󰊕",
+    Constructor = "",
+    Field = "󰇽",
+    Variable = "󰂡",
+    Class = "󰠱",
+    Interface = "",
+    Module = "",
+    Property = "󰜢",
+    Unit = "",
+    Value = "󰎠",
+    Enum = "",
+    Keyword = "󰌋",
+    Snippet = "",
+    Color = "󰏘",
+    File = "󰈙",
+    Reference = "",
+    Folder = "󰉋",
+    EnumMember = "",
+    Constant = "󰏿",
+    Struct = "",
+    Event = "",
+    Operator = "󰆕",
+    TypeParameter = "󰅲",
+}
+
 local cmp = require('cmp')
 local cmp_action = require('lsp-zero').cmp_action()
 local cmp_select_opts = { behaviour = cmp.SelectBehavior.Select }
@@ -111,7 +139,7 @@ cmp.setup({
         { name = 'nvim_lua' },
         { name = 'nvim_lsp_signature_help' },
         { name = 'path' },
-        { name = 'buffer' },
+        { name = 'buffer',                 keyword_length = 4, max_item_count = 8 },
         { name = 'luasnip' }
     },
     mapping = {
@@ -138,16 +166,22 @@ cmp.setup({
             end
         end),
     },
+    completion = {
+        autocomplete = false,
+
+    },
     window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
     },
     formatting = {
         -- changing the order of fields so the icon is the first
-        fields = { 'menu', 'abbr', 'kind' },
+        fields = { 'abbr', 'kind', 'menu' },
 
         -- here is where the change happens
         format = function(entry, item)
+            item.kind = string.format('%s %s', kind_icons[item.kind], item.kind) -- This concatonates the icons with the name of the item kind
+
             local menu_icon = {
                 nvim_lsp = 'λ',
                 luasnip = '⋗',
@@ -160,6 +194,9 @@ cmp.setup({
             return require("tailwindcss-colorizer-cmp").formatter(entry, item)
         end,
         expandable_indicator = true,
+    },
+    experimental = {
+        ghost_text = true,
     }
 })
 cmp.setup.filetype('gitcommit', {
