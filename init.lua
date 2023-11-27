@@ -1,2 +1,2 @@
 require("hrutvik")
-print("learning lua")
+-- print("learning lua")

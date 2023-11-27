@@ -41,3 +41,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
         vim.highlight.on_yank { higroup = 'IncSearch', timeout = 300 }
     end,
 })
+
+vim.cmd('set listchars=tab:<->,lead:»,multispace:•')
+-- set listchars=tab:<->,lead:.,multispace:>>> -- simple
+-- set listchars=tab:<->,lead:•,multispace:» -- digraph
+-- set listchars=tab:<->,lead:·,multispace:» -- digraph2
+-- set listchars=tab:<->,lead:»,multispace:• -- reversed digraph

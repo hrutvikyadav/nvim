@@ -133,8 +133,16 @@ require("lazy").setup({
         main = "ibl",
         cmd = 'IBLToggle',
         opts = {
-            -- char = '┊', `┋`,  `▏`
-            -- indent = { char = "▏" },
+            -- char = '┊', `┋`,  `▏`, `│`
+            indent = { char = "│" },
+            --[[ indent = {
+                char = "│",
+                priority = 2,
+            }, ]]
+            -- whitespace = { highlight = { "DiagnosticError", "NonText" } },
+            -- whitespace = { highlight = { "IndentGuideLight", "IndentGuideLight2", "IndentGuideDark" } }, -- Suited for light bg
+            whitespace = { highlight = { "IndentGuideDark2", "NonText", "IndentGuideBlack" } }, -- Suited for transparent bg
+            -- whitespace = { highlight = { "IndentGuideRed5", "IndentGuideRed6", "IndentGuideRed7" } }, -- shades of red
             scope = {
                 show_start = false,
                 show_end = false,
@@ -298,7 +306,8 @@ require("lazy").setup({
                 filetype_denylist = {
                     'fugitive',
                     'help',
-                    'gitcommit'
+                    'gitcommit',
+                    'fugitiveblame'
                 }
             })
             vim.api.nvim_set_hl(0, "IlluminatedWordText", { underline = false, bg = "#363B54" })
@@ -363,6 +372,154 @@ require("lazy").setup({
             -- add any options here
         },
         lazy = false,
+    },
+    {
+        "karb94/neoscroll.nvim", -- INFO: cinnamon scroll as alternative
+        enabled = false,
+        event = 'VeryLazy',
+        config = function()
+            require('neoscroll').setup {
+                mappings = { '<C-u>', '<C-d>', '<C-b>', '<C-f>', 'zt', 'zz', 'zb' }, -- '<C-y>', '<C-e>',
+                post_hook = function()
+                    vim.cmd('norm zz')
+                end, -- Function to run after the scrolling animation ends
+            }
+        end
+    },
+    {
+        "HiPhish/rainbow-delimiters.nvim",
+        config = function()
+            require('rainbow-delimiters.setup').setup({
+                query = {
+                    [''] = 'rainbow-delimiters',
+                    lua = 'rainbow-blocks',
+                },
+                --[[ highlight = {
+                    -- 'RainbowDelimiterRed',
+                    'RainbowDelimiterViolet',
+                    'RainbowDelimiterGreen',
+                    'RainbowDelimiterBlue',
+                    -- 'RainbowDelimiterYellow',
+                    -- 'RainbowDelimiterOrange',
+                    -- 'RainbowDelimiterCyan',
+                } ]]
+                highlight = {
+                    -- 'RainbowDelimiterRPViolet',
+                    "RainbowDelimiterRPPurple",
+                    -- "RainbowDelimiterRPRed",
+                    'RainbowDelimiterRPCyan',
+                    'RainbowDelimiterBlue',
+                }
+            })
+        end
+    },
+    {
+        'eandrju/cellular-automaton.nvim',
+        -- enabled = false,
+        cmd = 'CellularAutomaton'
+    },
+    {
+        'declancm/cinnamon.nvim',
+        event = 'VeryLazy',
+        enabled = true,
+        config = function()
+            require('cinnamon').setup({
+                default_keymaps = true,   -- Create default keymaps.
+                extra_keymaps = false,    -- Create extra keymaps.
+                extended_keymaps = false, -- Create extended keymaps.
+                override_keymaps = true,
+                default_delay = 10,       -- The default delay (in ms) between each line when scrolling.
+
+            })
+        end
+    },
+    {
+        'yamatsum/nvim-cursorline',
+        event = 'VeryLazy',
+        config = function()
+            require('nvim-cursorline').setup {
+                cursorline = {
+                    enable = true,
+                    timeout = 1000,
+                    number = false,
+                },
+                cursorword = {
+                    enable = false, -- NOTE: this is handled by `vim-illuminate`
+                    min_length = 3,
+                    hl = { underline = true },
+                }
+            }
+        end
+    },
+    {
+        'ldelossa/litee.nvim',
+        event = {
+            "BufEnter *.lua",
+            "BufEnter *.go",
+            "BufEnter *.rs",
+            "BufEnter *.nix",
+            "BufEnter *.c",
+            "BufEnter *.ml",
+            "BufEnter *.html",
+            "BufEnter *.js",
+            "BufEnter *.jsx",
+            "BufEnter *.ts",
+            "BufEnter *.tsx",
+        },
+        dependencies = {
+            'ldelossa/litee-symboltree.nvim',
+            'ldelossa/litee-calltree.nvim'
+        },
+        config = function()
+            require('litee.lib').setup({
+                tree = {
+                    -- icon_set = "codicons"
+                    icon_set = "nerd"
+                },
+                panel = {
+                    orientation = "right",
+                    panel_size  = 50
+                }
+            })
+            require('litee.symboltree').setup({})
+            require('litee.calltree').setup({})
+
+            vim.keymap.set('n', '<leader>DS', vim.lsp.buf.document_symbol, { desc = '[D]ocument [S]ymbol Outline' })
+            vim.keymap.set('n', '<leader>Co', vim.lsp.buf.outgoing_calls, { desc = '[C]alls [o]utgoing' })
+        end
+    },
+    {
+        "vuki656/package-info.nvim",
+        ft = 'json',
+        dependencies = "MunifTanjim/nui.nvim",
+        config = function()
+            require('package-info').setup({
+                colors = {
+                    up_to_date = "#3C4048", -- Text color for up to date dependency virtual text
+                    outdated = "#d19a66",   -- Text color for outdated dependency virtual text
+                },
+            })
+            -- Toggle dependency versions
+            vim.keymap.set({ "n" }, "<leader>nt", require("package-info").toggle,
+                { silent = true, noremap = true, desc = 'Toggle dependency versions' })
+            -- Update dependency on the line
+            vim.keymap.set({ "n" }, "<leader>nu", require("package-info").update,
+                { silent = true, noremap = true, desc = 'Update dependency on the line' })
+            -- Delete dependency on the line
+            vim.keymap.set({ "n" }, "<leader>nd", require("package-info").delete,
+                { silent = true, noremap = true, desc = 'Delete dependency on the line' })
+            -- Install a new dependency
+            vim.keymap.set({ "n" }, "<leader>ni", require("package-info").install,
+                { silent = true, noremap = true, desc = 'Install a new dependency' })
+            -- Install a different dependency version
+            vim.keymap.set({ "n" }, "<leader>np", require("package-info").change_version,
+                { silent = true, noremap = true, desc = 'Install a different dependency version' })
+        end
+    },
+    {
+        'stevearc/overseer.nvim',
+        cmd = 'OverseerRun',
+        opts = {},
     }
 })
 

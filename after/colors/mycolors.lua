@@ -4,8 +4,8 @@ local function set_highlight(group, attributes)
     for attr, value in pairs(attributes) do
         command = command .. " " .. attr .. "=" .. value
     end
-    -- for debug
-    print(command)
+    -- NOTE: for debug printing
+    -- print(command)
     vim.api.nvim_command(command)
 end
 
@@ -14,9 +14,16 @@ local cyan = "#9ccfd8"
 local red = "#ea9a97"
 local white = "#ecebf0"
 local rp_red = "#eb6f92"
+local rp_purple = "#C4A7E7"
 
 --:hi DiagnosticError ctermfg=1 guifg=#CC0000
 local foreign_red = "#CC0000"
+
+-- rainbow delimiters
+set_highlight("RainbowDelimiterRPViolet", { guifg = violet })
+set_highlight("RainbowDelimiterRPPurple", { guifg = rp_purple })
+set_highlight("RainbowDelimiterRPCyan", { guifg = cyan })
+set_highlight("RainbowDelimiterRPRed", { guifg = rp_red })
 
 function AddCT(is_def)
     -- use default GitGutter colors or a modified combination
