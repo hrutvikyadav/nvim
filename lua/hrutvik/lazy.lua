@@ -240,6 +240,9 @@ require("lazy").setup({
                 component_separators = '|',
                 section_separators = '',
             },
+            sections = {
+                lualine_x = { "overseer", "encoding", "fileformat", "filetype" }
+            }
         },
     },
     {
@@ -423,7 +426,7 @@ require("lazy").setup({
     {
         'declancm/cinnamon.nvim',
         event = 'VeryLazy',
-        enabled = true,
+        enabled = false,
         config = function()
             require('cinnamon').setup({
                 default_keymaps = true,   -- Create default keymaps.
@@ -521,7 +524,26 @@ require("lazy").setup({
     {
         'stevearc/overseer.nvim',
         cmd = 'OverseerRun',
-        opts = {},
+        -- opts = { },
+        config = function()
+            local overseer = require("overseer")
+            overseer.setup({
+                templates = { "builtin", "commontasks.first_task" },
+            })
+
+            vim.keymap.set("n", '<leader>o<leader>', "<cmd>OverseerToggle<cr>", {})
+            vim.keymap.set("n", '<leader>ota', "<cmd>OverseerTaskAction<cr>", {})
+            --[[ overseer.run_template({ name = "Display Whost home" }, function(task)
+                if task then
+                    overseer.run_action(task, 'open float')
+                end
+            end) ]]
+        end
+    },
+    {
+        'mg979/vim-visual-multi',
+        branch = 'master',
+        cmd = 'MulCurse'
     }
 })
 

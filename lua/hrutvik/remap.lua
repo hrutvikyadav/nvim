@@ -41,10 +41,13 @@ vim.keymap.set('n', "<leader>Gp", "<cmd>G push<cr>", { desc = '[G]it [p]ush to u
 vim.keymap.set('n', '<leader>Gf', '<cmd>diffget //2<cr>', { desc = 'diffget left' })
 vim.keymap.set('n', '<leader>Gj', '<cmd>diffget //3<cr>', { desc = 'diffget right' })
 
-vim.keymap.set('n', "<C-s>", vim.cmd.write, { desc = 'save file' })
+vim.keymap.set({ "n", "i" }, "<C-s>", vim.cmd.write, { desc = 'save file' })  -- add :e % (reloading for entr fmt to work correctly)
 
 -- Unimpaired keymaps
 vim.keymap.set('n', ']q', vim.cmd.cnext, { desc = 'Next QF item' })
 vim.keymap.set('n', '[q', vim.cmd.cprevious, { desc = 'Prev QF item' })
 vim.keymap.set('n', '[Q', vim.cmd.cfirst, { desc = 'First QF item' })
 vim.keymap.set('n', ']Q', vim.cmd.clast, { desc = 'Last QF item' })
+
+-- oveseer
+vim.keymap.set("n", '<leader><leader>', "<cmd>OverseerRun<cr>", {})
