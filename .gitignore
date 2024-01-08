@@ -1,0 +1,6 @@
+# Patches
+*.patch
+
+# Asciinema recs and converted gifs
+*.cast
+*.gif
