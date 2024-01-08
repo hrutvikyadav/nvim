@@ -544,7 +544,52 @@ require("lazy").setup({
         'mg979/vim-visual-multi',
         branch = 'master',
         cmd = 'MulCurse'
-    }
+    },
+    {
+        'rktjmp/paperplanes.nvim',
+        cmd = "PP",
+        config = function()
+            -- options shown with default values
+            require("paperplanes").setup({
+                register = "+",
+                provider = "ray.so",
+                provider_options = {},
+                notifier = vim.notify or print,
+            })
+        end
+    },
+    {
+        'axieax/urlview.nvim',
+        cmd = "UrlView",
+        config = function()
+            require("urlview").setup({})
+        end
+    },
+    {
+        'subnut/nvim-ghost.nvim',
+        event = 'VeryLazy',
+        enabled = false
+    },
+    {
+        "luckasRanarison/nvim-devdocs",
+        cmd = "DevdocsOpen",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope.nvim",
+            "nvim-treesitter/nvim-treesitter",
+        },
+        config = function()
+            require('hplugins.devdocs')
+        end
+    },
+    {
+        'stevearc/oil.nvim',
+        enabled = false,
+        event = "VeryLazy",
+        -- opts = {},
+        -- Optional dependencies
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+    },
 })
 
 -- vim.cmd('colorscheme rose-pine')
