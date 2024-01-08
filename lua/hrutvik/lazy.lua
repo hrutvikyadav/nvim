@@ -14,7 +14,8 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     {
         "folke/which-key.nvim",
-        event = "VeryLazy",
+        -- event = "VeryLazy",
+        cmd = "WhichKey",
         init = function()
             vim.o.timeout = true
             vim.o.timeoutlen = 300
@@ -88,6 +89,7 @@ require("lazy").setup({
             "BufEnter *.jsx",
             "BufEnter *.ts",
             "BufEnter *.tsx",
+            "BufEnter *.cs",
         },
         branch = 'v2.x',
         dependencies = {
@@ -114,10 +116,12 @@ require("lazy").setup({
             {
                 'L3MON4D3/LuaSnip',
                 -- follow latest release.
-                version = "2.*",    -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+                version = "2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
                 event = 'InsertEnter',
+                dependencies = { "rafamadriz/friendly-snippets" },
                 config = function() -- NOTE: move after/plugin/name.lua to hplugins/name.lua and require that below
                     require('hplugins.snippets')
+                    require("luasnip.loaders.from_vscode").lazy_load()
                 end
             }, -- Required
         },
@@ -134,18 +138,20 @@ require("lazy").setup({
         cmd = 'IBLToggle',
         opts = {
             -- char = '┊', `┋`,  `▏`, `│`
-            indent = { char = "│" },
+            indent = { char = "▏" },
             --[[ indent = {
                 char = "│",
                 priority = 2,
             }, ]]
             -- whitespace = { highlight = { "DiagnosticError", "NonText" } },
             -- whitespace = { highlight = { "IndentGuideLight", "IndentGuideLight2", "IndentGuideDark" } }, -- Suited for light bg
-            whitespace = { highlight = { "IndentGuideDark2", "NonText", "IndentGuideBlack" } }, -- Suited for transparent bg
+            -- whitespace = { highlight = { "IndentGuideDark2", "NonText", "IndentGuideBlack" } }, -- Suited for transparent bg
             -- whitespace = { highlight = { "IndentGuideRed5", "IndentGuideRed6", "IndentGuideRed7" } }, -- shades of red
+            whitespace = { highlight = { "CursorColumn", "WhiteSpace" } }, -- shades of dark
             scope = {
                 show_start = false,
                 show_end = false,
+
                 highlight = {
                     "Function",
                     "Label",
@@ -159,15 +165,15 @@ require("lazy").setup({
         opts = {
             -- See `:help gitsigns.txt`
             signs = {
-                --add          = { text = '+' },
+                --add          = { text = '+' }, "▎" , "▐", "┃"
                 --change       = { text = '~' },
                 --delete       = { text = '_' },
                 --topdelete    = { text = '‾' },
                 --changedelete = { text = '~' },
                 --untracked    = { text = '┆' },
 
-                add = { text = "│", },
-                change = { text = "│", },
+                add = { text = "┃", },
+                change = { text = "┃", },
                 delete = { text = "", },
                 topdelete = { text = "‾", },
                 changedelete = { text = "~", },
@@ -445,7 +451,7 @@ require("lazy").setup({
             require('nvim-cursorline').setup {
                 cursorline = {
                     enable = true,
-                    timeout = 1000,
+                    timeout = 400,
                     number = false,
                 },
                 cursorword = {
@@ -470,6 +476,7 @@ require("lazy").setup({
             "BufEnter *.jsx",
             "BufEnter *.ts",
             "BufEnter *.tsx",
+            "BufEnter *.cs",
         },
         dependencies = {
             'ldelossa/litee-symboltree.nvim',
