@@ -32,6 +32,10 @@ vim.opt.colorcolumn = "80"
 
 vim.g.mapleader = " "
 
+--     Python provider for neovim
+--     - You may disable this provider (and warning) by adding `let g:loaded_python3_provider = 0` to your init.vim
+vim.cmd('let g:loaded_python3_provider = 0')
+
 -- highlight text on yank
 vim.api.nvim_create_autocmd('TextYankPost', {
     group = vim.api.nvim_create_augroup('highlight_yank', { clear = true }),
