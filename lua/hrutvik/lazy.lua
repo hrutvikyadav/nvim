@@ -238,17 +238,53 @@ require("lazy").setup({
         'nvim-lualine/lualine.nvim',
         -- Set lualine as statusline
         -- See `:help lualine.txt`
+        config = function()
+            local ok, overseer = pcall(require, "overseer")
+            if not ok then
+                require('lualine').setup({
+                    options = {
+                        icons_enabled = false,
+                        theme = 'rose-pine',
+                        --theme = 'base16',
+                        component_separators = '|',
+                        section_separators = '',
+                    },
+                    sections = {
+                        lualine_x = { "encoding", "fileformat", "filetype" }
+                    }
+                })
+            else
+                require('lualine').setup({
+                    options = {
+                        icons_enabled = false,
+                        theme = 'rose-pine',
+                        --theme = 'base16',
+                        component_separators = '|',
+                        section_separators = '',
+                    },
+                    sections = {
+                        lualine_x = { {
+                            "overseer",
+                            label = '',     -- Prefix for task counts
+                            colored = true, -- Color the task icons and counts
+                            symbols = {
+                                -- " ", " ", " ", " ", " ", " ", "", " ", "", " ", " ", " ", " ", "", "", " ", "",
+                                [overseer.STATUS.FAILURE] = " ", --"F:", "", " "
+                                [overseer.STATUS.CANCELED] = " ", -- "C:", "", " "
+                                [overseer.STATUS.SUCCESS] = " ", -- "S:",
+                                [overseer.STATUS.RUNNING] = " ", --" ", -- "R:", "" ""
+                            },
+                            unique = false, -- Unique-ify non-running task count by name
+                            name = nil, -- List of task names to search for
+                            name_not = false, -- When true, invert the name search
+                            status = nil, -- List of task statuses to display
+                            status_not = false, -- When true, invert the status search
+                        }, "encoding", "fileformat", "filetype" }
+                    }
+                })
+            end
+        end,
         opts = {
-            options = {
-                icons_enabled = false,
-                theme = 'rose-pine',
-                --theme = 'base16',
-                component_separators = '|',
-                section_separators = '',
-            },
-            sections = {
-                lualine_x = { "overseer", "encoding", "fileformat", "filetype" }
-            }
         },
     },
     {
