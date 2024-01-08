@@ -140,7 +140,8 @@ cmp.setup({
         { name = 'nvim_lsp_signature_help' },
         { name = 'path' },
         { name = 'buffer',                 keyword_length = 4, max_item_count = 8 },
-        { name = 'luasnip' }
+        { name = 'luasnip' },
+        { name = 'neorg' },
     },
     mapping = {
         ['<Tab>'] = cmp_action.luasnip_supertab(),

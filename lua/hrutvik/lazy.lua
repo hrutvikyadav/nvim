@@ -654,6 +654,40 @@ require("lazy").setup({
             debug = false                           -- Prints errors and the command which is run.
         }
     },
+    {
+        "nvim-neorg/neorg",
+        build = ":Neorg sync-parsers",
+        -- tag = "*",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
+            require("neorg").setup {
+                load = {
+                    ["core.defaults"] = {},  -- Loads default behaviour
+                    ["core.concealer"] = {}, -- Adds pretty icons to your documents
+                    ["core.keybinds"] = {},  -- all keybinds will be enabled
+                    ["core.export"] = {},    -- export norg files
+                    ["core.dirman"] = {      -- Manages Neorg workspaces
+                        config = {
+                            workspaces = {
+                                notes = "~/notes",
+                                personal = "~/norg/personal",
+                                work = "~/norg/work",
+                            },
+                            default_workspace = "notes"
+                        },
+                    },
+                    ["core.completion"] = { -- completion engine setup
+                        config = {
+                            engine = "nvim-cmp",
+                            name = "[Neorg]"
+                        },
+                    },
+                    ["core.integrations.nvim-cmp"] = {},
+                    -- ["core.ui.calendar"] = {}, -- calendar -- BUG: nightly needed!
+                },
+            }
+        end,
+    },
 })
 
 -- vim.cmd('colorscheme rose-pine')
